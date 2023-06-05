@@ -5,3 +5,5 @@ ja:
     require_rogin: "ログインしてください"
     cant_access: "他人の情報にアクセスすることはできません"
     failure_login: "ログインに失敗しました"
+    success_signup: "ユーザーを登録しました。こちらからログインしてください"
+    failure_signup: "登録に失敗しました"
