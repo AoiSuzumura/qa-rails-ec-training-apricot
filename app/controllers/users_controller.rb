@@ -12,10 +12,10 @@ class UsersController < ApplicationController
   def update
     @user.assign_attributes(user_params)
     if @user.save
-      flash[:success] = "更新しました"
+      flash[:success] = t("notice.success_update")
       redirect_to @user
     else
-      flash.now[:danger] = "更新に失敗しました"
+      flash.now[:danger] = t("notice.failure_update")
       render "edit"
     end
   end
@@ -33,7 +33,7 @@ class UsersController < ApplicationController
 
     def logged_in_user
       unless logged_in?
-        flash[:danger] = "ログインしてください"
+        flash[:danger] = t("notice.require_rogin")
         redirect_to login_path
       end
     end
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find_by(id: params[:id])
       if current_user != @user
-        flash[:danger] = "他人の情報にアクセスすることはできません"
+        flash[:danger] = t("notice.cant_access")
         redirect_to root_path
       end
     end

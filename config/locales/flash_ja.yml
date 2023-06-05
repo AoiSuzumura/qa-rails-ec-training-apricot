@@ -1,0 +1,7 @@
+ja:
+  notice:
+    success_update: "更新しました"
+    failure_update: "更新に失敗しました"
+    require_rogin: "ログインしてください"
+    cant_access: "他人の情報にアクセスすることはできません"
+    failure_login: "ログインに失敗しました"
