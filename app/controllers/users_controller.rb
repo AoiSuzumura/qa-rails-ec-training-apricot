@@ -68,7 +68,7 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find_by(id: params[:id])
       if current_user != @user
-        flash[:danger] = t("notice.cant_access")
+        flash[:danger] = t("notice.cannot_access")
         redirect_to root_path
       end
     end
