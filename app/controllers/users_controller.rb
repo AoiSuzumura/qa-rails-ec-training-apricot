@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update]
   before_action :correct_user, only: [:edit, :update]
-  include SessionsHelper
 
   def new
     @user = User.new
@@ -47,13 +46,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(:last_name, :first_name, :zipcode, :prefecture, :municipality, :address, :apartments, :email, :phone_number, :password, :password_confirmation)
   end
   
-  def logged_in_user
-    unless logged_in?
-      flash[:danger] = "ログインしてください"
-      redirect_to login_path
-    end
-  end
-
   def correct_user
     @user = User.find_by(id: params[:id])
     if current_user != @user
