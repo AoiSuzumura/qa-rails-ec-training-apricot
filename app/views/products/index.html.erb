@@ -7,35 +7,27 @@
       <h2>商品検索画面</h2>
     </div>
     <div class="container mt-5">
-      <form action="#" method="post">
+    <%= form_with(url: products_path, method: :get, local: true) do |f| %>
+      <div class="container mt-5">
         <div class="mx-auto row">
           <label for="colFormLabelLg" class="col-sm-2 col-form-label col-form-label-lg">商品名</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control form-control-lg" id="colFormLabelLg" required />
+            <%= f.text_field :search, class: "form-control form-control-lg", id: "colFormLabelLg"%>
           </div>
           <div class="col-sm-4 mt-1">
-            <button type="submit" class="btn btn-primary" style="width: 80px">
-              検索
-            </button>
+            <%= f.submit "検索", class: "btn btn-primary", style: "width: 80px"  %>
           </div>
         </div>
-      </form>
-    </div>
-    <div class="container">
-      <div class="mx-auto row">
-        <label class="col-sm-2 col-form-label col-form-label-lg" for="exampleFormControlSelect2">商品カテゴリ</label>
-        <div class="col-sm-4">
-          <select id="exampleFormControlSelect2" class="form-control">
-            <option selected>未選択</option>
-            <option>食材品</option>
-            <option>生活用品</option>
-            <option>消耗品</option>
-            <option>嗜好品</option>
-            <option>医薬品</option>
-          </select>
+      </div>
+      <div class="container">
+        <div class="mx-auto row">
+          <label class="col-sm-2 col-form-label col-form-label-lg" for="exampleFormControlSelect2">商品カテゴリ</label>
+          <div class="col-sm-4">
+            <%= f.collection_select :category, Category.all, :id, :category_name, include_blank: "未選択" %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
     <div class="container">
       <p>全<%= @products.count %>件</p>
       <% if @products.blank? %>
@@ -79,9 +71,5 @@
       <% end %>
     </div>
   </main>
-  <footer>
-    <h1>探求学園Rails専攻</h1>
-    <p>© 2020 QuestAcademia, All rights reserved</p>
-  </footer>
 </body>
 </html>
