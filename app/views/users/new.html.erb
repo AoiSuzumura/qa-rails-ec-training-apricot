@@ -8,7 +8,6 @@
     </div>
     <div class="row mb-5 ml-5">
       <div class="col-sm-6 offset-sm-3">
-      <%= flash.now[:danger] %>  <!-- # TODO エラーメッセージの実装がまだなので暫定的に表示 -->
       <%= form_with(model: @user, local: true, url: signup_path) do |f| %>
         <div>
           <p>氏名</p>

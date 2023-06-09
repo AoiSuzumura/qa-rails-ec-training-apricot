@@ -3,8 +3,8 @@
 <% provide(:title, "ユーザー情報修正") %>
 <body>
   <main>
+    <%= render 'shared/error_messages', object: @user %>
     <h2 class="text-center mt-5">ユーザ情報修正</h2>
-    <%= flash.now[:danger] %> <!-- # TODO エラーメッセージの実装がまだなので暫定的に表示 -->
     <%= form_with(model: @user, local: true) do |f| %>
       <table width="50%" style="margin-left:350px">
         <tr height="40">
