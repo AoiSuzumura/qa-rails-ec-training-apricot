@@ -2,7 +2,6 @@
 <body>
   <main>
     <h4 class="d-flex justify-content-center mt-5 mb-3">ログイン画面</h4>
-    <%= flash.now[:danger] %>
     <%= form_with(local: true, url: login_path) do |f| %>
     <div class="d-flex justify-content-center">
       <div>
