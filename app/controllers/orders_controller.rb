@@ -4,6 +4,7 @@ class OrdersController < ApplicationController
   def index
     @orders = current_user.orders.all.page(params[:page])
   end
+
   def show
     @order = Order.find_by(id: params[:id])
   end
