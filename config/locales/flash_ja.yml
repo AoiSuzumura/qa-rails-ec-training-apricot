@@ -7,3 +7,7 @@ ja:
     failure_login: "ログインに失敗しました"
     success_signup: "ユーザーを登録しました。こちらからログインしてください"
     failure_signup: "登録に失敗しました"
+    success_order: "注文を確定しました"
+    failure_order: "注文を確定できませんでした"
+    success_add_cart: "カートに商品を追加しました"
+    failure_add_cart: "カートに商品を追加できませんでした"

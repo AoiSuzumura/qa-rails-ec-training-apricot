@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<%= provide(:title, "カート") %>
+  <body>
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-12 card border-dark mt-5">
+            <div class="cord-body ml-3 mb-2">
+              <h4 class="mt-4">お届け先</h4>
+              <p class="mb-2" style="padding-left: 20px;">
+                〒<%= current_user.zipcode %> 
+                <%= current_user.prefecture %><%= current_user.municipality %><%= current_user.address %> 
+                <%= current_user.apartments %>
+              </p>
+              <p style="padding-left: 160px;"><%= current_user.last_name %><%= current_user.first_name %>様</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <% if @cart_items.blank? %>
+            <h2 class="text-center" style="padding-top: 100px;">カートに商品はありません</h2>
+          <% else %>
+            <table class="table mt-5 ml-3 border-dark">
+              <thead>
+                <tr class="text-center">
+                  <th class="border-bottom border-dark" style="width:13%;">
+                    No
+                  </th>
+                  <th class="border-bottom border-dark" style="width:18%;">
+                    商品名
+                  </th>
+                  <th class="border-bottom border-dark" style="width:15%;">
+                    商品カテゴリ
+                  </th>
+                  <th class="border-bottom border-dark" style="width:15%;">
+                    値段
+                  </th>
+                  <th class="border-bottom border-dark" style="width:15%;">
+                    個数
+                  </th>
+                  <th class="border-bottom border-dark" style="width:15%;">
+                    小計
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @cart_items.each_with_index do |cart_item,index| %>
+                  <tr class="text-center">
+                    <th class="align-middle">
+                      <%= index + 1 %>
+                    </th>
+                    <td class="align-middle">
+                      <%= cart_item.product.product_name %>
+                    </td>
+                    <td class="align-middle">
+                      <%= cart_item.product.category.category_name %>
+                    </td>
+                    <td class="align-middle">
+                      <%= cart_item.product.price %>
+                    </td>
+                    <td class="align-middle"><button type="button" class="btn btn-outline-dark">
+                        <%= cart_item.quantity %></button>&nbsp;&nbsp;個
+                    </td>
+                    <td class="align-middle">
+                      <%= cart_total_price(cart_item) %>
+                      <% @sum += cart_total_price(cart_item) %>
+                    </td>
+                    <td class="border-0 align-middle">
+                      <%= link_to "削除", user_cart_cart_item_path(current_user.id, cart_item.id), method: :delete, class: "btn btn-danger" %>
+                    </td>
+                  </tr>
+                <% end %>
+                <tr class="text-center">
+                  <th class="border-bottom-0 align-middle">
+                  </th>
+                  <td class="border-bottom-0 align-middle">
+                  </td>
+                  <td class="border-bottom-0 align-middle">
+                  </td>
+                  <td class="border-bottom-0 align-middle">
+                  </td>
+                  <td class="border-bottom-0 align-middle">
+                    合計
+                  </td>
+                  <td class="border-bottom-0 align-middle">
+                    <%= @sum %>
+                  </td>
+                </tr>
+                <tr class="text-right">
+                  <th class="border-0">
+                  </th>
+                  <td class="border-0">
+                    <%= link_to "買い物を続ける", products_path, class: "btn btn-success" %>
+                  </td>
+                  <td class="border-0">
+                  </td>
+                  <td class="border-0">
+                  </td>
+                  <td class="border-0">
+                    <%= link_to "注文を確定する", confirmed_order_path, method: :post, class: "btn btn-primary" %>
+                  </td>
+                  <td class="border-0 align-middle">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

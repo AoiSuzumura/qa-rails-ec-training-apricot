@@ -5,7 +5,13 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
-  resources :users, only: [:show, :edit, :update, :destroy]
+  post "/confirmed_order", to: "carts#confirmed_order"
+  post "/product/:product_id/add_cart", to: "cart_items#add_cart", as: "add_cart"
+  resources :users, only: [:show, :edit, :update, :destroy] do
+    resource :cart, only: [:show] do
+      resources :cart_items, only: [:destroy]
+    end
+  end
   resources :products
   resources :orders
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
