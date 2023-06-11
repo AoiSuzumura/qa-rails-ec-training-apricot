@@ -20,7 +20,7 @@ module SessionsHelper
 
   def logout
     session.delete(:user_id)
-    @current_user = nil
+    @current_user = nil # rubocop:disable Lint/UselessAssignment
     @current_cart = nil
   end
 end
