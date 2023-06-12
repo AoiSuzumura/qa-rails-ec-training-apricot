@@ -20,8 +20,8 @@ class CartsController < ApplicationController
       # カート内の商品をそれぞれ注文詳細に登録するための処理
       shipment_status_id = ShipmentStatus.find_by(shipment_status_name: "準備中").id
       cart = Cart.find_by(user_id: current_user.id)
-      cart.cart_items.each do |item|
-        @order.order_details.create!(order_quantity: item.quantity, product_id: item.product_id, shipment_status_id: shipment_status_id)
+      cart.cart_items.each do |cart_item|
+        @order.order_details.create!(order_quantity: cart_item.quantity, product_id: cart_item.product_id, shipment_status_id: shipment_status_id)
       end
       # カートの中身を空にする
       records = cart.cart_items.destroy_all
