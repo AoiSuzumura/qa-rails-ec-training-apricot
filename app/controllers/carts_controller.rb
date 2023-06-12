@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
   include SessionsHelper
   def show
-    cart = Cart.find_by(user_id: current_user.id)
+    cart = current_user.cart
     @cart_items = cart.cart_items
     @sum = 0
   end
@@ -19,20 +19,13 @@ class CartsController < ApplicationController
       @order = current_user.orders.create!(order_date: Time.zone.today, order_number: number)
       # カート内の商品をそれぞれ注文詳細に登録するための処理
       shipment_status_id = ShipmentStatus.find_by(shipment_status_name: "準備中").id
-      cart = Cart.find_by(user_id: current_user.id)
+      cart = current_user.cart
       cart.cart_items.each do |cart_item|
         @order.order_details.create!(order_quantity: cart_item.quantity, product_id: cart_item.product_id, shipment_status_id: shipment_status_id)
       end
       # カートの中身を空にする
-      records = cart.cart_items.destroy_all
-      # destroy_all!などの例外を吐き出すメソッドがないため、下記でチェック
-      unless records.all?(&:destroyed?)
-        raise ActiveRecord::Rollback
-      end
-      # 下3行は、destroy_allを使わない方法です。これはカートごと削除することで、カートの中身をからにしています。どちらの方がいいと思いますか？
-      # Cart.find_by(user_id: current_user.id).destroy!
-      # @current_cart = nil
-      # current_cart
+      cart.destroy!
+      Cart.create!(user_id: current_user.id)
     end
     flash[:succes] = t("notice.success_order")
     redirect_to purchase_completed_order_path(@order.id)
