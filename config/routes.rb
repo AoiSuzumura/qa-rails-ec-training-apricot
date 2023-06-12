@@ -5,7 +5,6 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
-  post "/confirmed_order", to: "carts#confirmed_order"
   post "/product/:product_id/add_cart", to: "cart_items#add_cart", as: "add_cart"
   resources :users, only: [:show, :edit, :update, :destroy] do
     resource :cart, only: [:show] do
