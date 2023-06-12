@@ -1,7 +1,8 @@
 class CartsController < ApplicationController
   include SessionsHelper
   def show
-    @cart_items = CartItem.where(cart_id: current_cart.id)
+    cart = Cart.find_by(user_id: current_user.id)
+    @cart_items = cart.cart_items
     @sum = 0
   end
 
@@ -23,7 +24,8 @@ class CartsController < ApplicationController
         @order.order_details.create!(order_quantity: item.quantity, product_id: item.product_id, shipment_status_id: shipment_status_id)
       end
       # カートの中身を空にする
-      records = CartItem.where(cart_id: current_cart.id).destroy_all
+      cart = Cart.find_by(user_id: current_user.id)
+      records = cart.cart_items.destroy_all
       # destroy_all!などの例外を吐き出すメソッドがないため、下記でチェック
       unless records.all?(&:destroyed?)
         raise ActiveRecord::Rollback
