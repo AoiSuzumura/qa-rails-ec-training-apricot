@@ -4,7 +4,7 @@ module ApplicationHelper
     if title.blank?
       default_title
     else
-      "#{title}"
+      title.to_s
     end
   end
 end

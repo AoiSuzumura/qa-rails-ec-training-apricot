@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       login(user)
       redirect_to user
     else
-      flash.now[:danger] = "ログインに失敗しました"
+      flash.now[:danger] = t("notice.failure_login")
       render "new"
     end
   end
