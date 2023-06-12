@@ -19,11 +19,11 @@ class CartsController < ApplicationController
       @order = current_user.orders.create!(order_date: Time.zone.today, order_number: number)
       # カート内の商品をそれぞれ注文詳細に登録するための処理
       shipment_status_id = ShipmentStatus.find_by(shipment_status_name: "準備中").id
-      CartItem.all.each do |item|
+      cart = Cart.find_by(user_id: current_user.id)
+      cart.cart_items.each do |item|
         @order.order_details.create!(order_quantity: item.quantity, product_id: item.product_id, shipment_status_id: shipment_status_id)
       end
       # カートの中身を空にする
-      cart = Cart.find_by(user_id: current_user.id)
       records = cart.cart_items.destroy_all
       # destroy_all!などの例外を吐き出すメソッドがないため、下記でチェック
       unless records.all?(&:destroyed?)
