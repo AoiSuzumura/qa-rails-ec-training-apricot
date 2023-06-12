@@ -9,13 +9,12 @@ class CartsController < ApplicationController
   def confirmed_order
     # 複数のデータを作成(削除)するので、トランザクションを行う
     ActiveRecord::Base.transaction do
-      number = "%9d" % rand(999_999_999)
       # ランダムな数字は注文番号として使用するが、重複がない様にチェックを行う
-      check = Order.find_by(order_number: number)
       # 重複があった場合に、ループ処理で重複がなくなるまでランダムな数字を変更する
-      while check.present?
+      while
         number = "%9d" % rand(999_999_999)
         check = Order.find_by(order_number: number)
+        break if check.blank?
       end
       @order = current_user.orders.create!(order_date: Time.zone.today, order_number: number)
       # カート内の商品をそれぞれ注文詳細に登録するための処理
