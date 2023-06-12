@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<%= provide(:title, "購入完了画面") %>
+  <body>
+    <main>
+      <div class="blockquote mt-5 text-center">
+        <h1 style="font-weight: bolder">購入完了しました</h1>
+      </div>
+      <div class="container-sm mt-5 text-center">
+        <p class="h1">ご購入ありがとうございます！</p>
+        <p class="h1">注文番号:<%= @order.order_number %></p>
+      </div>
+      <div class="container text-center mt-5">
+        <%= link_to "Topに戻る", root_path, class: "btn btn-primary mt-5" %>
+      </div>
+    </main>
+  </body>
+</html>

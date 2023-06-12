@@ -16,11 +16,11 @@ class CartsController < ApplicationController
         number = "%9d" % rand(999_999_999)
         check = Order.find_by(order_number: number)
       end
-      order = current_user.orders.create!(order_date: Time.zone.today, order_number: number)
+      @order = current_user.orders.create!(order_date: Time.zone.today, order_number: number)
       # カート内の商品をそれぞれ注文詳細に登録するための処理
       shipment_status_id = ShipmentStatus.find_by(shipment_status_name: "準備中").id
       CartItem.all.each do |item|
-        order.order_details.create!(order_quantity: item.quantity, product_id: item.product_id, shipment_status_id: shipment_status_id)
+        @order.order_details.create!(order_quantity: item.quantity, product_id: item.product_id, shipment_status_id: shipment_status_id)
       end
       # カートの中身を空にする
       records = CartItem.where(cart_id: current_cart.id).destroy_all
@@ -34,8 +34,7 @@ class CartsController < ApplicationController
       # current_cart
     end
     flash[:succes] = t("notice.success_order")
-    # TODO: ルート変更が必要、フロント購入完了画面へ
-    redirect_to root_path
+    redirect_to purchase_completed_order_path(@order.id)
   rescue
     flash[:danger] = t("notice.failure_order")
     redirect_to user_cart_path(current_user.id)

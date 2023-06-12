@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     end
   end
   resources :products
-  resources :orders
+  resources :orders do
+    member do
+      get :purchase_completed
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
