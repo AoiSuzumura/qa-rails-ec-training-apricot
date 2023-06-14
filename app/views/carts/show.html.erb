@@ -26,7 +26,7 @@
             <table class="table mt-5 ml-3 border-dark">
               <thead>
                 <tr class="text-center">
-                  <th class="border-bottom border-dark" style="width:13%;">
+                  <th class="border-bottom border-dark" style="width:7%;">
                     No
                   </th>
                   <th class="border-bottom border-dark" style="width:18%;">
@@ -49,7 +49,7 @@
               <tbody>
                 <% @cart_items.each_with_index do |cart_item,index| %>
                   <tr class="text-center">
-                    <th class="align-middle">
+                    <th class="align-middle" id="text_wide">
                       <%= index + 1 %>
                     </th>
                     <td class="align-middle">
@@ -61,16 +61,22 @@
                     <td class="align-middle">
                       <%= cart_item.product.price %>
                     </td>
-                    <td class="align-middle"><button type="button" class="btn btn-outline-dark">
-                        <%= cart_item.quantity %></button>&nbsp;&nbsp;個
+                    <%= form_with(model: @cart_items, url: update_quantity_path(cart_item.id), local: true) do |f| %>
+                    <td class="align-middle">
+                      <%= f.text_field :quantity, class: "form-control", pattern: "[1-9][0-9]*", min: 1, required: true, value: cart_item.quantity, size: "2" %>
                     </td>
                     <td class="align-middle">
                       <%= cart_total_price(cart_item) %>
                     </td>
                     <td class="border-0 align-middle">
+                      <%= f.submit "更新", class: "btn btn-primary btn-block" %>
+                    </td>
+                    
+                    <td class="border-0 align-middle">
                       <%= link_to "削除", user_cart_cart_item_path(current_user.id, cart_item.id), method: :delete, class: "btn btn-danger" %>
                     </td>
                   </tr>
+                <% end %>
                 <% end %>
                 <tr class="text-center">
                   <th class="border-bottom-0 align-middle">
