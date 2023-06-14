@@ -9,7 +9,7 @@ class OrdersController < ApplicationController
     ActiveRecord::Base.transaction do
       # ランダムな数字は注文番号として使用するが、重複がない様にチェックを行う
       # 重複があった場合に、ループ処理で重複がなくなるまでランダムな数字を変更する
-      while
+      loop do
         number = "%9d" % rand(999_999_999)
         check = Order.find_by(order_number: number)
         break if check.blank?

@@ -20,8 +20,8 @@ class UsersController < ApplicationController
       @user = user_classification.users.create!(user_params)
       Cart.create!(user_id: @user.id)
     end
-      flash[:success] = t("notice.success_signup")
-      redirect_to login_path
+    flash[:success] = t("notice.success_signup")
+    redirect_to login_path
   rescue
     flash.now[:danger] = t("notice.failure_signup")
     render "new"
