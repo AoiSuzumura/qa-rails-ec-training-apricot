@@ -23,8 +23,8 @@ class UsersController < ApplicationController
       flash[:success] = t("notice.success_signup")
       redirect_to login_path
   rescue
-      flash.now[:danger] = t("notice.failure_signup")
-      render "new"
+    flash.now[:danger] = t("notice.failure_signup")
+    render "new"
   end
 
   def update
