@@ -35,7 +35,7 @@
               <tbody class="h6 font-weight-normal">
                 <tr>
                   <th class="font-weight-normal" scope="row">
-                  <%= (i + 1) %>
+                    <%= (i + 1) %>
                   </th>
                   <td class="text-left">
                     <%= order.order_number%>
@@ -47,7 +47,7 @@
                     注文日時:<%= order.order_date.strftime("%Y/%m/%d") %><br />注文状態:<%= order.order_preparing? ? "準備中" : "発送済" %>
                   </td>
                   <td class="border-0 align-middle">
-                  <%= link_to "詳細", order_path(order.id), class: "btn btn-primary btn-sm" %>
+                    <%= link_to "詳細", order_path(order.id), class: "btn btn-primary btn-sm" %>
                   </td>
                 </tr>
               </tbody>
