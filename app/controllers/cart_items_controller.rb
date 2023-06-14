@@ -17,16 +17,16 @@ class CartItemsController < ApplicationController
     @cart_item = CartItem.find_by(id: params[:cart_item_id])
     @cart_item.assign_attributes(cart_item_params)
     if @cart_item.save
-      flash[:success] = "個数を更新しました"
+      flash[:success] = t("notice.success_update_quantity")
     else
-      flash[:danger] = "個数の更新に失敗しました"
+      flash[:danger] = t("notice.failure_update_quantity")
     end
     redirect_to user_cart_path(current_user.id)
   end
 
   def destroy
     CartItem.find_by(id: params[:id]).destroy!
-    flash[:danger] = "商品をカートから削除しました"
+    flash[:danger] = t("notice.success_destroy")
     redirect_to user_cart_path(current_user.id)
   end
 
