@@ -33,6 +33,7 @@ body {
   /*←footerの高さ*/
   box-sizing: border-box;
   /*←全て含めてmin-height:100vhにbody全体の表示領域を確保・指定*/
+  min-height: 100vh;
   font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro W3", メイリオ,
     Meiryo, "ＭＳ Ｐゴシック", "Helvetica Neue", Helvetica,
     sans-serif;
@@ -62,6 +63,10 @@ header p {
 
 header li {
   list-style: none;
+}
+
+.under-header {
+  padding-top: 2rem;
 }
 
 main {

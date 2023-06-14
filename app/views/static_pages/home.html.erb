@@ -1,0 +1,24 @@
+<% provide(:title, "ホーム画面") %>
+<body>
+  <% if logged_in? %>
+    <main>
+      <h1 class="mt-5 text-center">探求学園Rails専攻 ECサイト</h1>
+      <div class="text-center mt-4">
+        <p>ご利用いただき、ありがとうございます<br>右上のメニューから商品を検索したり、注文したりできます</p>
+      </div>
+    </main>
+  <% else %>
+    <main>
+      <h1 class="mt-5 text-center">探求学園Rails専攻 ECサイト</h1>
+      <div class="row d-flex justify-content-center align-items-center">
+        <div class="mt-3 mr-3 text-center col-sm-3">
+          <p>まだアカウントを<br>お持ちでない方はこちら</p>
+          <%= link_to "新規登録", signup_path, class: "btn btn-primary" %>
+        </div>
+        <div class="mt-3 ml-3 text-center col-sm-3">
+          <p>すでにアカウントを<br>お持ちの方はこちら</p>
+          <%= link_to "ログイン", login_path, class: "btn btn-primary" %>
+        </div>
+      </div>
+    </main>
+  <% end %>

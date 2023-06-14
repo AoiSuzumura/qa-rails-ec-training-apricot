@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<% provide(:title, "ユーザー登録") %>
+<body>
+  <div class="container">
+    <div class="jumbotron text-center bg-white mt-5">
+      <h2>お客様情報登録</h2>
+    </div>
+    <div class="row mb-5 ml-5">
+      <div class="col-sm-6 offset-sm-3">
+      <%= form_with(model: @user, local: true, url: signup_path) do |f| %>
+        <div>
+          <p>氏名</p>
+          <div class="row ms-2">
+            <label for="last_name" class="col-sm">姓</label>
+            <div class="col-sm-5">
+              <%= f.text_field :last_name, class: "form-control", id: "last_name", maxlength: 10, required: true %>
+            </div>
+            <label for="first_name" class="col-sm">名</label>
+            <div class="col-sm-5">
+              <%= f.text_field :first_name, class: "form-control", id: "first_name", maxlength: 10, required: true %>
+            </div>
+          </div>
+          <div>
+            <label for="zipcode">郵便番号</label>
+            <div class="col-sm-6 ms-4">
+              <%= f.text_field :zipcode, class: "form-control", id: "zipcode", pattern: "[1-9][0-9]*", length: 7, required: true %>
+            </div>
+          </div>
+          <div>
+            <p class="mb-1">住所</p>
+            <div class="ms-4">
+              <div class="row">
+                <label for="prefecture" class="mt-2 ml-4 col-sm">都道府県</label>
+                <div class="col-sm-9 mt-1">
+                  <%= f.text_field :prefecture, class: "form-control", id: "prefecture", maxlength: 5, required: true %>
+                </div>
+              </div>
+
+              <div class="row">
+                <label for="municipality" class="ml-4 mt-2 col-sm">市町村区</label>
+                <div class="col-sm-9 mt-1">
+                  <%= f.text_field :municipality, class: "form-control", id: "municipality", maxlength: 10, required: true %>
+                </div>
+              </div>
+              <div class="row">
+                <label for="address" class="mt-2 ml-4 mr-2 col-sm">番地</label>
+                <div class="col-sm-9 ml-4 mt-1">
+                  <%= f.text_field :address, class: "form-control", id: "address", maxlength: 15, required: true %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label for="apartments" class="ml-2 ms-4">マンション・部屋番号</label>
+            <div class="offset-sm-1">
+              <div class="ml-5 mr-5">
+                <%= f.text_field :apartments, class: "form-control", id: "apartments", maxlength: 20, required: true %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label for="email">メールアドレス</label>
+          <div class="ml-3 mr-5 ms-4">
+            <%= f.email_field :email, class: "form-control", id: "email" %>
+          </div>
+        </div>
+        <div>
+          <label for="phone_number">電話番号</label>
+          <div class="ml-3 mr-5 ms-4">
+            <%= f.text_field :phone_number, class: "form-control", id: "phone_number", maxlength: "15", pattern: "(^[0-9]+$){1,15}", required: true %>
+          </div>
+        </div>
+        <div>
+          <label for="password">パスワード</label>
+          <div class="col-sm-8 ms-4">
+            <%= f.password_field :password, class: "form-control", id: "password", pattern: "^[0-9A-Za-z]+$", minlength: 6, maxlength: 15 %>
+          </div>
+        </div>
+        <div>
+          <label for="password">パスワード再入力</label>
+          <div class="col-sm-8 ms-4">
+            <%= f.password_field :password_confirmation, class: "form-control", id: "password", pattern: "^[0-9A-Za-z]+$", minlength: 6, maxlength: 15 %>
+          </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-sm-2 mt-5">
+            <%= f.submit "登録", class: "btn btn-primary btn-block" %>
+          </div>
+        </div>
+        <div class="mt-5 text-center">
+          <h3><%= link_to "ログインはこちらから", login_path %></h3>
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</html>

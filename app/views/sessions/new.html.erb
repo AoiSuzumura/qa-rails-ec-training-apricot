@@ -1,0 +1,28 @@
+<% provide(:title, "ログイン画面") %>
+<body>
+  <main>
+    <h4 class="d-flex justify-content-center mt-5 mb-3">ログイン画面</h4>
+    <%= form_with(local: true, url: login_path) do |f| %>
+    <div class="d-flex justify-content-center">
+      <div>
+        <%= f.label :email, "メールアドレス", class: "mb-0" %>
+        <p><%= f.email_field :email, id: "email", required: true %></p>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div>
+        <%= f.label :password, "パスワード", class: "mb-0" %>
+        <p><%= f.password_field :password, id: "password", required: true %></p>
+      </div>
+    </div>
+    <div class="d-flex justify-content-center">
+      <div>
+        <%= f.submit "ログイン", class: "btn btn-primary" %>
+      </div>
+    </div>
+    <% end %>
+    <div class="d-flex justify-content-center">
+      <a href="">まだ登録がお済みでない方はこちら</a>
+    </div>
+  </main>
+</body>
