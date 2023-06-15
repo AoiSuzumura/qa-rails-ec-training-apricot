@@ -6,6 +6,10 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
   end
 
+  def show
+    @user = User.find_by(id: params[:id])
+  end
+
   def new
     @user = User.new
   end
@@ -17,10 +21,10 @@ class UsersController < ApplicationController
     user_classification = UserClassification.find_by(user_classification_name: "一般ユーザー")
     @user = user_classification.users.build(user_params)
     if @user.save
-      flash[:success] = "ユーザーを登録しました。こちらからログインしてください。"
+      flash[:success] = t("notice.success_signup")
       redirect_to login_path
     else
-      flash.now[:danger] = "登録に失敗しました。"
+      flash.now[:danger] = t("notice.failure_signup")
       render "new"
     end
   end
@@ -28,10 +32,10 @@ class UsersController < ApplicationController
   def update
     @user.assign_attributes(user_params)
     if @user.save
-      flash[:success] = "更新しました"
+      flash[:success] = t("notice.success_update")
       redirect_to @user
     else
-      flash.now[:danger] = "更新に失敗しました"
+      flash.now[:danger] = t("notice.failure_update")
       render "edit"
     end
   end
@@ -44,14 +48,30 @@ class UsersController < ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:last_name, :first_name, :zipcode, :prefecture, :municipality, :address, :apartments, :email, :phone_number, :password,
+      params.require(:user).permit(:last_name,
+                                   :first_name,
+                                   :zipcode,
+                                   :prefecture,
+                                   :municipality,
+                                   :address,
+                                   :apartments,
+                                   :email,
+                                   :phone_number,
+                                   :password,
                                    :password_confirmation)
+    end
+
+    def logged_in_user
+      unless logged_in?
+        flash[:danger] = t("notice.require_rogin")
+        redirect_to login_path
+      end
     end
 
     def correct_user
       @user = User.find_by(id: params[:id])
       if current_user != @user
-        flash[:danger] = "他人の情報にアクセスすることはできません"
+        flash[:danger] = t("notice.cannot_access")
         redirect_to root_path
       end
     end
