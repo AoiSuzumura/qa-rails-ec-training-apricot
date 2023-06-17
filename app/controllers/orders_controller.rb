@@ -11,11 +11,10 @@ class OrdersController < ApplicationController
 
   def correct_order
     order = Order.find_by(id: params[:id])
-      return if order.nil?
-      if current_user != order.user
-        flash[:danger] = "他人の情報にアクセスすることはできません"
-        redirect_to root_path
-      end
+    return if order.nil?
+    if current_user != order.user
+      flash[:danger] = "他人の情報にアクセスすることはできません"
+      redirect_to root_path
+    end
   end
-  
 end
