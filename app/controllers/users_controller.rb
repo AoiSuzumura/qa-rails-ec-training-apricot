@@ -15,16 +15,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    ActiveRecord::Base.transaction do
-      user_classification = UserClassification.find_by(user_classification_name: "一般ユーザー")
-      @user = user_classification.users.create!(user_params)
-      Cart.create!(user_id: @user.id)
+    user_classification = UserClassification.find_by(user_classification_name: "一般ユーザー")
+    @user = user_classification.users.build(user_params)
+    if @user.save
+      flash[:success] = t("notice.success_signup")
+      redirect_to login_path
+    else
+      flash.now[:danger] = t("notice.failure_signup")
+      render "new"
     end
-    flash[:success] = t("notice.success_signup")
-    redirect_to login_path
-  rescue
-    flash.now[:danger] = t("notice.failure_signup")
-    render "new"
   end
 
   def update

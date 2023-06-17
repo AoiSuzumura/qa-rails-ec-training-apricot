@@ -1,7 +1,7 @@
 class CartItemsController < ApplicationController
   include SessionsHelper
   def add_cart
-    cart = current_user.cart
+    cart = Cart.find_or_create_by(user_id: current_user.id)
     @cart_item = cart.cart_items.find_or_initialize_by(product_id: params[:product_id])
     @cart_item.quantity += params[:quantity].to_i
     if @cart_item.save
