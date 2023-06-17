@@ -15,11 +15,15 @@ class CartItemsController < ApplicationController
 
   def update_quantity
     @cart_item = CartItem.find_by(id: params[:cart_item_id])
-    @cart_item.assign_attributes(cart_item_params)
-    if @cart_item.save
-      flash[:success] = t("notice.success_update_quantity")
-    else
+    if @cart_item.blank?
       flash[:danger] = t("notice.failure_update_quantity")
+    else
+      @cart_item.assign_attributes(cart_item_params)
+      if @cart_item.save
+        flash[:success] = t("notice.success_update_quantity")
+      else
+        flash[:danger] = t("notice.failure_update_quantity")
+      end
     end
     redirect_to cart_path
   end
