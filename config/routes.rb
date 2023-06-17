@@ -8,9 +8,9 @@ Rails.application.routes.draw do
   post "/product/:product_id/add_cart", to: "cart_items#add_cart", as: "add_cart"
   post "/cart_item/:cart_item_id/update_quantity", to: "cart_items#update_quantity", as: "update_quantity"
   resources :users, only: [:show, :edit, :update, :destroy] do
-    resource :cart, only: [:show] do
-      resources :cart_items, only: [:destroy]
-    end
+  end
+  resource :cart, only: [:show] do
+    resources :cart_items, only: [:destroy]
   end
   resources :products
   resources :orders do

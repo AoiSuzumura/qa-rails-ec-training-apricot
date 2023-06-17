@@ -10,11 +10,11 @@ class OrdersController < ApplicationController
       # ランダムな数字は注文番号として使用するが、重複がない様にチェックを行う
       # 重複があった場合に、ループ処理で重複がなくなるまでランダムな数字を変更する
       loop do
-        number = "%9d" % rand(999_999_999)
-        check = Order.find_by(order_number: number)
+        @number = "%9d" % rand(999_999_999)
+        check = Order.find_by(order_number: @number)
         break if check.blank?
       end
-      @order = current_user.orders.create!(order_date: Time.zone.today, order_number: number)
+      @order = current_user.orders.create!(order_date: Time.zone.today, order_number: @number)
       # カート内の商品をそれぞれ注文詳細に登録するための処理
       shipment_status_id = ShipmentStatus.find_by(shipment_status_name: "準備中").id
       cart = current_user.cart
@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
     redirect_to purchase_completed_order_path(@order.id)
   rescue
     flash[:danger] = t("notice.failure_order")
-    redirect_to user_cart_path(current_user.id)
+    redirect_to cart_path
   end
 
   def purchase_completed

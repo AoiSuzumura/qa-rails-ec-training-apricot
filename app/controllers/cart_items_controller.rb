@@ -6,7 +6,7 @@ class CartItemsController < ApplicationController
     @cart_item.quantity += params[:quantity].to_i
     if @cart_item.save
       flash[:success] = t("notice.success_add_cart")
-      redirect_to user_cart_path(current_user.id)
+      redirect_to cart_path
     else
       flash[:danger] = t("notice.failure_add_cart")
       redirect_to product_path(params[:product_id])
@@ -21,13 +21,13 @@ class CartItemsController < ApplicationController
     else
       flash[:danger] = t("notice.failure_update_quantity")
     end
-    redirect_to user_cart_path(current_user.id)
+    redirect_to cart_path
   end
 
   def destroy
     CartItem.find_by(id: params[:id]).destroy!
     flash[:danger] = t("notice.success_destroy")
-    redirect_to user_cart_path(current_user.id)
+    redirect_to cart_path
   end
 
   private
