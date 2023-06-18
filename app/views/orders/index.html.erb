@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+
+<main>
+  <% if @orders.present? %>
+    <div class="container">
+      <hr style="width:90%; opacity:0.9;">
+      <table class="table">
+        <thead class="table h4">
+
+          <tr>
+            <th class="text-start" width="5%">
+              No
+            </th>
+            <th class="text-start" width="20%">
+              注文番号
+            </th>
+            <th class="text-start" width="40%">
+              お届け先
+            </th>
+            <th class="text-start" width="25%">
+              備考
+            </th>
+            <th class="text-start border-0" width="20%"></th>
+          </tr>
+        </thead>
+        <% @orders.each_with_index do |order, i| %>
+          <tbody class="h6 font-weight-normal">
+            <tr>
+              <th class="font-weight-normal" scope="row">
+                <%= (i + 1) %>
+              </th>
+              <td class="text-left">
+                <%= order.order_number%>
+              </td>
+              <td class="text-left">
+                〒<%=  order.user.zipcode%><br /><%= order.user.prefecture %><%= order.user.municipality %> <%= order.user.address%> <%= order.user.apartments%><br /><%= order.user.last_name%> <%= order.user.first_name%>
+              </td>
+              <td class="text-left">
+                注文日時:<%= order.order_date.strftime("%Y/%m/%d") %><br />注文状態:<%= order.order_preparing? ? "準備中" : "発送済" %>
+              </td>
+              <td class="border-0 align-middle">
+                <%= link_to "詳細", order_path(order.id), class: "btn btn-primary btn-sm" %>
+              </td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
+    </div>
+
+    <div class="container">
+      <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+        <li><%= paginate @orders %></li>
+        </ul>
+      </nav>
+    </div>
+  <% else %>
+    <div class="blockquote mt-5 text-center">
+      <h1 style="font-weight: bolder">注文履歴は存在しません</h1>
+    </div>
+    
+  <% end %>
+</main>
