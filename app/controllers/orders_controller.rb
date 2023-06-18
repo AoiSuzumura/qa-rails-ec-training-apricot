@@ -19,6 +19,6 @@ class OrdersController < ApplicationController
   end
   def destroy
     Order.find_by(id: params[:id]).destroy!
-    redirect_to order_path
+    redirect_to orders_path
   end
 end
