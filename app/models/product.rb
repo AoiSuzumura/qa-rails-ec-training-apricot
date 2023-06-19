@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :purchases, dependent: :destroy
   has_many :order_details, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
 
   def self.search(search, category)
     products = all

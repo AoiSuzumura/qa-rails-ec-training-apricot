@@ -2,6 +2,7 @@ class User < ApplicationRecord
   belongs_to :user_classification
   has_many :orders, dependent: :destroy
   has_many :products, dependent: :destroy
+  has_one :cart, dependent: :destroy
 
   VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

@@ -7,4 +7,8 @@ module ApplicationHelper
       title.to_s
     end
   end
+
+  def cart_total_price(cart_item)
+    cart_item.product.price * cart_item.quantity
+  end
 end

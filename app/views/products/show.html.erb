@@ -16,16 +16,18 @@
             <p>探求学園限定商品！</p>
             <p class="mt-4 mb-5">価格：<%= @product.price %></p>
           </div>
-          <div class="row justify-content-center">
-            <label for="order_quanity" class="mt-1 col-sm-1">購入個数</label>
-            <div class="col-sm-1">
-              <input required type="text" class="form-control" id="order_quanity" pattern="[1-9][0-9]*" min="1">
+          <%= form_with(url: add_cart_path(@product.id), local: true) do |f| %>
+            <div class="row justify-content-center">
+              <label for="order_quanity" class="mt-1 col-sm-1">購入個数</label>
+              <div class="col-sm-1">
+                <%= f.text_field :quantity, class: "form-control", id: "order_quanity", pattern: "[1-9][0-9]*", min: 1, required: true %>
+              </div>
+              <label class="mt-1 col-sm-1">個</label>
+              <div class="col-sm-2">
+                <%= f.submit "カートへ", class: "btn btn-primary btn-block" %>
+              </div>
             </div>
-            <label class="mt-1 col-sm-1">個</label>
-            <div class="col-sm-2">
-              <button type="button" class="btn btn-primary btn-block">カートへ</button>
-            </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>
