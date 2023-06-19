@@ -12,7 +12,7 @@
         <ul class="navbar-nav">
           <%= link_to "商品検索", products_path, class: "nav-link text-dark" %>
           <%= link_to "カート", cart_path, class: "nav-link text-dark" %>
-          <%= link_to "注文履歴", root_path, class: "nav-link text-dark" %> <!-- # TODO 注文履歴機能未実装のため order_path に変更の必要あり -->
+          <%= link_to "注文履歴", orders_path, class: "nav-link text-dark" %> 
           <%= link_to "ユーザー情報", user_path(current_user.id), class: "nav-link text-dark" %>
           <%= link_to "ログアウト", logout_path, method: :delete, class: "nav-link text-dark" %>
         </ul>
