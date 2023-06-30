@@ -1,10 +1,7 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: [:edit, :update]
   before_action :correct_user, only: [:edit, :update]
-
-  def show
-    @user = User.find_by(id: params[:id])
-  end
+  before_action :ensure_normal_user, only: [:update, :destroy]
 
   def show
     @user = User.find_by(id: params[:id])
@@ -73,6 +70,12 @@ class UsersController < ApplicationController
       if current_user != @user
         flash[:danger] = t("notice.cannot_access")
         redirect_to root_path
+      end
+    end
+
+    def ensure_normal_user
+      if current_user.email == 'guest@example.com'
+        redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできません。'
       end
     end
 end

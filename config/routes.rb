@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   post "/cart_item/:cart_item_id/update_quantity", to: "cart_items#update_quantity", as: "update_quantity"
   resources :users, only: [:show, :edit, :update, :destroy] do
   end
+  devise_scope :user do
+    post 'users/guest_login', to: 'users/sessions#guest_login'
+  end
   resource :cart, only: [:show] do
     resources :cart_items, only: [:destroy]
   end
