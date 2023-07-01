@@ -75,7 +75,8 @@ class UsersController < ApplicationController
 
     def ensure_normal_user
       if current_user.email == 'guest@example.com'
-        redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできません。'
+        flash[:danger] = t("notice.cannot_edit")
+        redirect_to root_path 
       end
     end
 end
