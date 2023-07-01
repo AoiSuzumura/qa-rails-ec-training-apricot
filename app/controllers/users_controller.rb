@@ -74,9 +74,9 @@ class UsersController < ApplicationController
     end
 
     def ensure_normal_user
-      if current_user.email == 'guest@example.com'
+      if current_user.email == "guest@example.com"
         flash[:danger] = t("notice.cannot_edit")
-        redirect_to root_path 
+        redirect_to root_path
       end
     end
 end

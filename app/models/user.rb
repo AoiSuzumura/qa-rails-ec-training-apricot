@@ -20,7 +20,7 @@ class User < ApplicationRecord
   validates :phone_number, presence: true, length: { maximum: 15 }, format: { with: /\A[0-9]+\z/ }
 
   def self.guest
-    find_or_create_by!(email: 'guest@example.com') do |user|
+    find_or_create_by!(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64(6)
       user.last_name = "Guest"
       user.first_name = "User"
@@ -35,5 +35,4 @@ class User < ApplicationRecord
       user.delete_flag = false
     end
   end
-
 end
