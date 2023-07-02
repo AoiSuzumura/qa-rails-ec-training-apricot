@@ -14,3 +14,5 @@ ja:
     success_update_quantity: "個数を更新しました"
     failure_update_quantity: "個数の更新に失敗しました"
     success_destroy: "商品をカートから削除しました"
+    success_guest_login: "ゲストユーザーとしてログインしました"
+    cannot_edit: "ゲストユーザーの編集・削除はできません。"

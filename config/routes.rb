@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  post 'guest_login', to: 'guest_sessions#guest_login'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
   post "/product/:product_id/add_cart", to: "cart_items#add_cart", as: "add_cart"

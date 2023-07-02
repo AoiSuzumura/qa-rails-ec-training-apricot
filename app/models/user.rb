@@ -18,4 +18,21 @@ class User < ApplicationRecord
   validates :apartments, presence: true, length: { maximum: 20 }
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
   validates :phone_number, presence: true, length: { maximum: 15 }, format: { with: /\A[0-9]+\z/ }
+
+  def self.guest
+    find_or_create_by!(email: "guest@example.com") do |user|
+      user.password = SecureRandom.urlsafe_base64(6)
+      user.last_name = "Guest"
+      user.first_name = "User"
+      user.zipcode = "1234567"
+      user.prefecture = "Tokyo"
+      user.municipality = "Minato-ku"
+      user.address = "123 Street"
+      user.apartments = "Apartment 1"
+      user.phone_number = "1234567890"
+      user.user_classification_id = 1
+      user.company_name = "Guest Company"
+      user.delete_flag = false
+    end
+  end
 end
